@@ -1,6 +1,7 @@
 package kr.or.connect.reservation.service.impl;
 
 import kr.or.connect.reservation.dao.DetailDao;
+import kr.or.connect.reservation.domain.DisplayInfo;
 import kr.or.connect.reservation.domain.dto.DetailDto;
 import kr.or.connect.reservation.domain.dto.ReviewDto;
 import kr.or.connect.reservation.service.DetailService;
@@ -34,5 +35,11 @@ public class DetailServiceImpl implements DetailService{
     @Transactional(readOnly = true)
     public List<ReviewDto> getReviewsByProductId(Long id) {
         return detailDao.selectReviewsByProductId(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DisplayInfo getDisplayInfoByProductId(Long id) {
+        return detailDao.selectDisplayInfoByProductId(id);
     }
 }

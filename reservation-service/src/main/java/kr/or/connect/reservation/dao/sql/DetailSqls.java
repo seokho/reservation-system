@@ -40,5 +40,8 @@ public class DetailSqls {
                     " GROUP BY RUC.id" +
                     " HAVING RUC.product_id = :id";
 
-
+    public final static String SELECT_DISPLAY_INFO_BY_PRODUCT_ID =
+            "SELECT id, place_name, place_lot, place_street, tel" +
+                    " FROM display_info" +
+                    " WHERE product_id = :id";
 }

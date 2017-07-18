@@ -28,11 +28,11 @@ public class ProductDao {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<ProductDto> selectAllLimit(Integer offset, Integer limit) {
+    public List<ProductDto> selectAllUseLimit(Integer offset, Integer limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("offset", offset);
         paramsMap.put("limit", limit);
-        return jdbcTemplate.query(SELECT_ALL_LIMIT, paramsMap, dtoRowMapper);
+        return jdbcTemplate.query(SELECT_ALL_USE_LIMIT, paramsMap, dtoRowMapper);
     }
 
     public List<ProductDto> selectByCategoryId(Integer category, Integer offset, Integer limit) {

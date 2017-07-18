@@ -6,18 +6,17 @@
     //event box(product list)
     var productListModule = {
         init: function () {
-            this.renderProductList(4);
+            this.rendering(4);
             this.bindClickEvent();
         },
         bindClickEvent: function () {
-            $.GLOBAL_VAR.$lstEventBox.on("click", "li.item", productListModule.findLocation);
+            $.GLOBAL_VAR.$lstEventBox.on("click", "li.item", productListModule.moveToLocation);
 
         },
-        findLocation: function () {
-            var url = "/detail/" + $(this).find("a.item_book").data("productid");
-            $.commonAPIModule.moveToLocation(url);
+        moveToLocation: function () {
+            location.href = "/detail/" + $(this).find("a.item_book").data("productid");
         },
-        renderProductList: function (limit) {
+        rendering: function (limit) {
             var url;
             var category = $.GLOBAL_VAR.activeCategory;
             if (category !== 0) {
@@ -60,14 +59,14 @@
     //category select section
     var categoryModule = {
         init: function () {
-            this.renderCategoryList();
+            this.rendering();
             this.bindClickEvent();
             this.setActiveProductsCount();
         },
 
         bindClickEvent: function () {
             $.GLOBAL_VAR.$eventTabLst.on("click", "a.anchor", categoryModule.setActive.bind(this));
-            $.GLOBAL_VAR.$btnMore.on("click", productListModule.renderProductList.bind(undefined, 2));
+            $.GLOBAL_VAR.$btnMore.on("click", productListModule.rendering.bind(undefined, 2));
         },
 
         setActive: function (event) {
@@ -78,7 +77,7 @@
             $.GLOBAL_VAR.$selectedCategory = $eventTarget;
             $.GLOBAL_VAR.activeCategory = $eventTarget.closest(".item").data("category");
             productListModule.removeListItem($.GLOBAL_VAR.$lstEventBox);
-            productListModule.renderProductList(4);
+            productListModule.rendering(4);
             // categoryModule.setActiveProductsCount();
         },
 
@@ -89,7 +88,7 @@
             });
         },
 
-        renderCategoryList: function () {
+        rendering: function () {
             var getCategories = $.commonAPIModule.ajax(undefined, $.GLOBAL_VAR.API_ROOT_URL + "categories/", "json", "get", "json");
             getCategories.then(function (list) {
                 var defaultCategory = {

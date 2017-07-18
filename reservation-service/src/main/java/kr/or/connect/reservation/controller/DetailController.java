@@ -1,5 +1,6 @@
 package kr.or.connect.reservation.controller;
 
+import kr.or.connect.reservation.domain.DisplayInfo;
 import kr.or.connect.reservation.domain.dto.DetailDto;
 import kr.or.connect.reservation.domain.dto.ReviewDto;
 import kr.or.connect.reservation.service.DetailService;
@@ -28,5 +29,10 @@ public class DetailController {
     @GetMapping("/review/{productId}")
     public List<ReviewDto> getReviewsLimit(@PathVariable("productId") Long id) {
         return detailService.getReviewsByProductId(id);
+    }
+
+    @GetMapping("/displayInfo/{productId}")
+    public DisplayInfo getDisplayInfo(@PathVariable("productId") Long id) {
+        return detailService.getDisplayInfoByProductId(id);
     }
 }

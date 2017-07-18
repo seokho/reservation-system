@@ -19,8 +19,8 @@ public class MainController {
         return "detail";
     }
 
-    @GetMapping("/review/{productId}")
-    public String review(@PathVariable("prdocutId") Long id){
+    @GetMapping("/review/{id}")
+    public String review(@PathVariable("id") Long id){
         return "review";
     }
 }

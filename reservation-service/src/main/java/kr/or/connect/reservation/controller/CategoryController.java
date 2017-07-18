@@ -37,7 +37,6 @@ public class CategoryController {
     }
 
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @DeleteMapping("/{id}")
     @ResponseBody
     public String delete(@PathVariable("id") String id) {

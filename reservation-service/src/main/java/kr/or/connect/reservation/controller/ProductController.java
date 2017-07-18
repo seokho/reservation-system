@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by ODOL on 2017. 7. 12..
@@ -22,14 +23,14 @@ public class ProductController {
     }
 
     @GetMapping
-    public Collection<ProductDto> getProducts(
+    public List<ProductDto> getProducts(
             @RequestParam Integer offset,
             @RequestParam Integer limit) {
         return productService.getProductsUseLimit(offset, limit);
     }
 
     @GetMapping("/{category}")
-    public Collection<ProductDto> getProductsByCategory(
+    public List<ProductDto> getProductsByCategory(
             @PathVariable("category") Integer category,
             @RequestParam Integer offset,
             @RequestParam Integer limit) {

@@ -34,9 +34,6 @@
     };
 
     $.commonAPIModule = {
-        bindEventOnClick: function ($wrapperDom, targetDom, func) {
-            $wrapperDom.on('click', targetDom, func);
-        },
 
         ajax: function (data, url, dataType, type, contentType) {
             return $.ajax({
@@ -47,14 +44,11 @@
                 contentType: ((contentType === undefined) ? $.GLOBAL_VAR.CONTENT_TYPE_DEFAULT : $.GLOBAL_VAR.CONTENT_TYPE_JSON)
             });
         },
-        moveToLocation: function (url) {
-            document.location.href = url;
-        },
         templeToElement: function (template, context) {
             var templateScript = Handlebars.compile(template);
             return templateScript(context);
         }
-    }
+    };
 
     $.headModule = {
         init: function ($wrapper, $target) {
@@ -62,7 +56,10 @@
         },
 
         bindClickEvent: function ($wrapper, $target) {
-            $.commonAPIModule.bindEventOnClick($wrapper, $target, $.commonAPIModule.moveToLocation.bind(undefined, $.GLOBAL_VAR.ROOT_URL));
+            $wrapper.on("click", $target, $.headModule.moveToLocation.bind(undefined, $.GLOBAL_VAR.ROOT_URL));
+        },
+        moveToLocation: function(url) {
+            location.href = url;
         }
     };
 })($);

@@ -1,5 +1,6 @@
 package kr.or.connect.reservation.dao;
 
+import kr.or.connect.reservation.domain.DisplayInfo;
 import kr.or.connect.reservation.domain.dto.DetailDto;
 import kr.or.connect.reservation.domain.dto.ReviewDto;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -22,6 +23,7 @@ public class DetailDao {
     private NamedParameterJdbcTemplate jdbcTemplate;
     private RowMapper<DetailDto> detailRowMapper = BeanPropertyRowMapper.newInstance(DetailDto.class);
     private RowMapper<ReviewDto> reviewRowMapper = BeanPropertyRowMapper.newInstance(ReviewDto.class);
+    private RowMapper<DisplayInfo> displayInfoRowMapper = BeanPropertyRowMapper.newInstance(DisplayInfo.class);
 
 
     public DetailDao(DataSource dataSource) {
@@ -34,25 +36,22 @@ public class DetailDao {
         return jdbcTemplate.query(SELECT_FILES_BY_PRODUCT_ID, paramMap, detailRowMapper);
     }
 
-//    public List<ReviewDto> selectReviewsByProductIdUseLimit(Long id) {
-//        Map<String, Object> paramMap = new HashMap<>();
-//        paramMap.put("id", id);
-//        List<ReviewDto> reviewDtoList = jdbcTemplate.query(SELECT_REVIEWS_BY_PRODUCT_ID_USE_LIMIT, paramMap, reviewRowMapper);
-//        for(ReviewDto dto : reviewDtoList) {
-//            dto.setUsername(replaceUsername(dto.getUsername()));
-//        }
-//        return reviewDtoList;
-//    }
 
     public List<ReviewDto> selectReviewsByProductId(Long id) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
         List<ReviewDto> reviewDtoList = jdbcTemplate.query(SELECT_REVIEWS_BY_PRODUCT_ID, paramMap, reviewRowMapper);
-        reviewDtoList.forEach(dto -> dto.setUsername(replaceUsername(dto.getUsername())));
+        reviewDtoList.forEach(dto -> dto.setUsername(blockUsername(dto.getUsername())));
         return reviewDtoList;
     }
 
-    private String replaceUsername(String username) {
+    public DisplayInfo selectDisplayInfoByProductId(Long id) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        return jdbcTemplate.queryForObject(SELECT_DISPLAY_INFO_BY_PRODUCT_ID, paramMap, displayInfoRowMapper);
+    }
+
+    private String blockUsername(String username) {
         StringBuilder stringBuilder = new StringBuilder(username);
         stringBuilder.replace(stringBuilder.length()-4, stringBuilder.length(), "****");
         return stringBuilder.toString();

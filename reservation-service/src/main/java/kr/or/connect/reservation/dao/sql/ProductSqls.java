@@ -4,7 +4,7 @@ package kr.or.connect.reservation.dao.sql;
  * Created by ODOL on 2017. 7. 12..
  */
 public class ProductSqls {
-    public final static String SELECT_ALL_LIMIT =
+    public final static String SELECT_ALL_USE_LIMIT =
             "SELECT P.id, P.category_id, P.name, P.description, DI.place_name , MAX(F.file_name) file_name, MAX(F.save_file_name) save_file_name"
                     + " FROM product AS P"
                     + " JOIN display_info AS DI"

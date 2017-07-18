@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<ProductDto> getProductsUseLimit(Integer offset, Integer limit) {
-        return productDao.selectAllLimit(offset, limit);
+        return productDao.selectAllUseLimit(offset, limit);
     }
 
     @Override
