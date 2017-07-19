@@ -26,12 +26,12 @@ public class DetailController {
         return detailService.getProductFilesByProductId(id);
     }
 
-    @GetMapping("/review/{productId}")
+    @GetMapping("/{productId}/review")
     public List<ReviewDto> getReviewsLimit(@PathVariable("productId") Long id) {
         return detailService.getReviewsByProductId(id);
     }
 
-    @GetMapping("/displayInfo/{productId}")
+    @GetMapping("/{productId}/displayInfo")
     public DisplayInfo getDisplayInfo(@PathVariable("productId") Long id) {
         return detailService.getDisplayInfoByProductId(id);
     }

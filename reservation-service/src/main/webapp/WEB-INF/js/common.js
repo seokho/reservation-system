@@ -56,10 +56,13 @@
         },
 
         bindClickEvent: function ($wrapper, $target) {
-            $wrapper.on("click", $target, $.headModule.moveToLocation.bind(undefined, $.GLOBAL_VAR.ROOT_URL));
-        },
-        moveToLocation: function(url) {
-            location.href = url;
+            $wrapper.on("click", $target, function () {
+                location.href = $.GLOBAL_VAR.ROOT_URL;
+            });
+
+            $wrapper.on("click", "a.btn_my", function () {
+                location.href = $.GLOBAL_VAR.API_ROOT_URL + "/login/naverLogin";
+            });
         }
     };
 })($);

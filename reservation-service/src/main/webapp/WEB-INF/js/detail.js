@@ -30,7 +30,7 @@
         },
 
         reviewSectionTrigger: function () {
-            var getReviewData = $.commonAPIModule.ajax(undefined, API_URL + "/review/" + productId, "json", "get", "json");
+            var getReviewData = $.commonAPIModule.ajax(undefined, API_URL + "/" + productId + "/review", "json", "get", "json");
             getReviewData.then(function (data) {
                 REVIEW_DATA = data;
                 reviewModule.init();
@@ -43,7 +43,7 @@
         },
 
         mapSectionTrigger: function () {
-            var getDisplayInfoData = $.commonAPIModule.ajax(undefined, API_URL + "/displayInfo/" + productId, "json", "get", "json");
+            var getDisplayInfoData = $.commonAPIModule.ajax(undefined, API_URL + "/" + productId + "/displayInfo", "json", "get", "json");
             getDisplayInfoData.then(function (data) {
                 DISPLAY_INFO_DATA = data;
                 mapModule.init();
@@ -125,6 +125,9 @@
         bindClickEvent: function () {
             $('a.btn_review_more').on("click", reviewModule.moveToLocation);
         },
+        popUp: function () {
+
+        },
         moveToLocation: function () {
             location.href = "/review/" + productId;
         },
@@ -147,7 +150,7 @@
                     "title": productData[0].name,
                     "review": reviewData[i].comment,
                     "grade": reviewData[i].score,
-                    "userId": reviewData[i].usernames
+                    "userId": reviewData[i].username
                 }
                 var element = $.commonAPIModule.templeToElement(template, content);
                 $target.append(element);

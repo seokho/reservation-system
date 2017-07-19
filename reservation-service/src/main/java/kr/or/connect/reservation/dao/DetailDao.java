@@ -41,6 +41,9 @@ public class DetailDao {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
         List<ReviewDto> reviewDtoList = jdbcTemplate.query(SELECT_REVIEWS_BY_PRODUCT_ID, paramMap, reviewRowMapper);
+//        for(ReviewDto dto : reviewDtoList) {
+//            dto.setUsername(blockUsername(dto.getUsername()));
+//        }
         reviewDtoList.forEach(dto -> dto.setUsername(blockUsername(dto.getUsername())));
         return reviewDtoList;
     }
