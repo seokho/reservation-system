@@ -1,5 +1,6 @@
 package kr.or.connect.reservation.service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -8,10 +9,8 @@ import java.util.Map;
 public interface LoginService {
     String generateState();
     String getRequestURL();
+    void logout(HttpSession session);
     Map<String, String> getUserDataMap(String state, String code);
-    //    Map<String, String> JSONStringToMap(String str);
-//    String getHtml(String url, String authorization);
-//    String getAccessUrl(String state, String code);
-//    String getUserProfileUrl();
+
 
 }

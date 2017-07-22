@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -42,15 +43,30 @@ public class NaverLoginService implements LoginService {
         return requestURL;
     }
 
+
+    @Override
+    public void logout(HttpSession session) {
+        String state = (String) session.getAttribute("state");
+        String code = (String) session.getAttribute("code");
+        String accessToken = (String) session.getAttribute("accessToken");
+        String data = getHtml(getAccessUrl(state, code, "delete", accessToken), null);
+        Map<String, String> map = JSONStringToMap(data);
+        System.out.println(map.get("result"));
+        session.removeAttribute("state");
+        session.removeAttribute("accesToken");
+        session.removeAttribute("code");
+    }
+
     @Override
     public Map<String, String> getUserDataMap(String state, String code) {
-        String data = getHtml(getAccessUrl(state, code), null);
+        String data = getHtml(getAccessUrl(state, code, "auth", null), null);
 
         Map<String, String> map = JSONStringToMap(data);
         String accessToken = map.get("access_token");
         String tokenType = map.get("token_type");
 
         String profileDataXml = getHtml(userProfileUrl, tokenType + " " + accessToken);
+
         JSONObject jsonObject = XML.toJSONObject(profileDataXml);
         JSONObject responseData = jsonObject.getJSONObject("data");
         Map<String, String> userMap = JSONStringToMap(responseData.get("response").toString());
@@ -63,7 +79,8 @@ public class NaverLoginService implements LoginService {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            map = mapper.readValue(str, new TypeReference<HashMap<String, String>>() {});
+            map = mapper.readValue(str, new TypeReference<HashMap<String, String>>() {
+            });
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -73,6 +90,7 @@ public class NaverLoginService implements LoginService {
         }
         return map;
     }
+
 
     private String getHtml(String url, String authorization) {
         HttpURLConnection httpRequest = null;
@@ -105,9 +123,15 @@ public class NaverLoginService implements LoginService {
         return resultValue;
     }
 
-    private String getAccessUrl(String state, String code) {
-        String accessURL = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret=" + clientPW
-                + "&grant_type=authorization_code" + "&state=" + state + "&code=" + code;
+    private String getAccessUrl(String state, String code, String grantType, String accessToken) {
+        String accessURL = null;
+        if (grantType.equals("auth")) {
+            accessURL = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret=" + clientPW
+                    + "&grant_type=authorization_code&state=" + state + "&code=" + code;
+        } else if (grantType.equals("delete")) {
+            accessURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=" + clientId + "&client_secret=" + clientPW
+                    + "&access_token=" + accessToken + "&service_provider=NAVER";
+        }
         return accessURL;
     }
 

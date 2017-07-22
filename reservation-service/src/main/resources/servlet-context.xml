@@ -12,6 +12,13 @@
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/reservation/myReservation"/>
+            <bean class="kr.or.connect.reservation.interceptor.LoginInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -33,7 +40,5 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg ref="dataSource"/>
     </bean>
-
-
 
 </beans>

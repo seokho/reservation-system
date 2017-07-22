@@ -24,4 +24,6 @@
     }
 
     initModule.init();
+    $.headModule.init();
+
 })(window)

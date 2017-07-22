@@ -51,17 +51,17 @@
     };
 
     $.headModule = {
-        init: function ($wrapper, $target) {
-            this.bindClickEvent($wrapper, $target);
+        init: function ($wrapper, $targetMain, $targetMy) {
+            this.bindClickEvent($wrapper, $targetMain, $targetMy);
         },
 
-        bindClickEvent: function ($wrapper, $target) {
-            $wrapper.on("click", $target, function () {
+        bindClickEvent: function ($wrapper, $targetMain, $targetMy) {
+            $wrapper.on("click", $targetMain, function () {
                 location.href = $.GLOBAL_VAR.ROOT_URL;
             });
 
-            $wrapper.on("click", "a.btn_my", function () {
-                location.href = $.GLOBAL_VAR.API_ROOT_URL + "/login/naverLogin";
+            $wrapper.on("click", $targetMy, function () {
+                location.href =  "/reservation/myReservation";
             });
         }
     };

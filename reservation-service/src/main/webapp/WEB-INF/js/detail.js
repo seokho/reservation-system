@@ -218,7 +218,7 @@
         }
     };
 
-    $.headModule.init($h1Logo, $aLnkLogo);
+    $.headModule.init($('header'), 'a.lnk_logo', 'a.btn_my');
     initModule.init();
 
 })(window);

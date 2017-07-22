@@ -116,9 +116,12 @@
 
     };
 
-    $.headModule.init($.GLOBAL_VAR.$headerClass, $.GLOBAL_VAR.lnkLogoClass);
+    $.headModule.init($('header.header_tit'), 'a.lnk_logo', 'a.btn_my');
     categoryModule.init();
     productListModule.init();
+    $('#log_out').on("click", function() {
+
+    })
 
 
 })(window);

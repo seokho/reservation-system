@@ -275,6 +275,7 @@
         </div>
     </li>
 </script>
+<script src="../js/common.js"></script>
 <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=KEf5YOJku5sJltnJIuJ7&submodules=geocoder"></script>
 <script src="../js/detail.js"></script>
