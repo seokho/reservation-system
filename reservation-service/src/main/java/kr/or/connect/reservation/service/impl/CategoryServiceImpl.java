@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(readOnly = true)
     public List<Category> getCategories() {
-        return categoryDao.selectAll();
+        return categoryDao.selectCategoryList();
     }
 
     @Override

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
+
 /**
  * Created by ODOL on 2017. 7. 13..
  */
@@ -18,6 +20,11 @@ public class ProductDto {
     private String name;
     private String description;
     private String placeName;
+    private String placeStreet;
+    private String observationTime;
+    private Date displayStart;
+    private Date displayEnd;
     private String fileName;
     private String saveFileName;
+
 }

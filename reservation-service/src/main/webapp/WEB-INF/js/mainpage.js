@@ -24,7 +24,7 @@
             } else {
                 url = $.GLOBAL_VAR.API_ROOT_URL + "products?offset=" + $.GLOBAL_VAR.offset + "&limit=" + limit;
             }
-            var getProducts = $.commonAPIModule.ajax(undefined, url, "json", "get", "json");
+            var getProducts = CommonAPIModule.ajax(undefined, url, "json", "get", "json");
             getProducts.then(function (list) {
                 $.GLOBAL_VAR.productList = list;
                 productListModule.appendElement(category, list);
@@ -44,7 +44,7 @@
                     "smallLocation": products[i].placeName,
                     "pDescription": products[i].description
                 };
-                var element = $.commonAPIModule.templeToElement(template, context);
+                var element = CommonAPIModule.templeToElement(template, context);
                 $target.append(element);
             }
         },
@@ -82,14 +82,14 @@
         },
 
         setActiveProductsCount: function () {
-            var getCount = $.commonAPIModule.ajax(undefined, $.GLOBAL_VAR.API_ROOT_URL + "products/count", "json", "get", "json");
+            var getCount = CommonAPIModule.ajax(undefined, $.GLOBAL_VAR.API_ROOT_URL + "products/count", "json", "get", "json");
             getCount.then(function (count) {
                 $.GLOBAL_VAR.$pEventLstTxt.text(count + "개");
             });
         },
 
         rendering: function () {
-            var getCategories = $.commonAPIModule.ajax(undefined, $.GLOBAL_VAR.API_ROOT_URL + "categories/", "json", "get", "json");
+            var getCategories = CommonAPIModule.ajax(undefined, $.GLOBAL_VAR.API_ROOT_URL + "categories/", "json", "get", "json");
             getCategories.then(function (list) {
                 var defaultCategory = {
                     id: 0,
@@ -107,7 +107,7 @@
                     "id": elements[i].id,
                     "name": elements[i].name
                 };
-                $.GLOBAL_VAR.$eventTabLst.append($.commonAPIModule.templeToElement(template, context));
+                $.GLOBAL_VAR.$eventTabLst.append(CommonAPIModule.templeToElement(template, context));
             }
             $.GLOBAL_VAR.$selectedCategory = $('ul.event_tab_lst>li:first-child').find("a.anchor");
             $.GLOBAL_VAR.$selectedCategory.addClass("active");
@@ -116,7 +116,7 @@
 
     };
 
-    $.headModule.init($('header.header_tit'), 'a.lnk_logo', 'a.btn_my');
+    HeadModule.init($('header.header_tit'), 'a.lnk_logo', 'a.btn_my');
     categoryModule.init();
     productListModule.init();
     $('#log_out').on("click", function() {

@@ -33,36 +33,48 @@
         offset: 0
     };
 
-    $.commonAPIModule = {
-
-        ajax: function (data, url, dataType, type, contentType) {
-            return $.ajax({
-                data: JSON.stringify(data),
-                url: url,
-                dataType: dataType,
-                type: type,
-                contentType: ((contentType === undefined) ? $.GLOBAL_VAR.CONTENT_TYPE_DEFAULT : $.GLOBAL_VAR.CONTENT_TYPE_JSON)
-            });
-        },
-        templeToElement: function (template, context) {
-            var templateScript = Handlebars.compile(template);
-            return templateScript(context);
-        }
-    };
-
-    $.headModule = {
-        init: function ($wrapper, $targetMain, $targetMy) {
-            this.bindClickEvent($wrapper, $targetMain, $targetMy);
-        },
-
-        bindClickEvent: function ($wrapper, $targetMain, $targetMy) {
-            $wrapper.on("click", $targetMain, function () {
-                location.href = $.GLOBAL_VAR.ROOT_URL;
-            });
-
-            $wrapper.on("click", $targetMy, function () {
-                location.href =  "/reservation/myReservation";
-            });
-        }
-    };
 })($);
+
+var HeadModule = (function() {
+    var init = function ($wrapper, $targetMain, $targetMy) {
+        bindClickEvent($wrapper, $targetMain, $targetMy);
+    };
+
+    var bindClickEvent = function ($wrapper, $targetMain, $targetMy) {
+        $wrapper.on("click", $targetMain, function () {
+            location.href = $.GLOBAL_VAR.ROOT_URL;
+        });
+
+        $wrapper.on("click", $targetMy, function () {
+            location.href =  "/myReservation";
+        });
+    };
+
+    return {
+        init : init
+    }
+})();
+
+var CommonAPIModule = (function(){
+
+    var ajax = function (data, url, dataType, type, contentType) {
+        return $.ajax({
+            data: JSON.stringify(data),
+            url: url,
+            dataType: dataType,
+            type: type,
+            contentType: ((contentType === undefined) ? $.GLOBAL_VAR.CONTENT_TYPE_DEFAULT : $.GLOBAL_VAR.CONTENT_TYPE_JSON)
+        });
+    };
+
+
+    var templeToElement = function (template, context) {
+        var templateScript = Handlebars.compile(template);
+        return templateScript(context);
+    };
+
+    return {
+        "ajax" : ajax,
+        "templeToElement" : templeToElement
+    };
+})();

@@ -22,7 +22,7 @@ public class DetailServiceImpl implements DetailService{
     @Override
     @Transactional(readOnly = true)
     public List<DetailDto> getProductFilesByProductId(Long id) {
-        return detailDao.selectFilesByProductId(id);
+        return detailDao.selectFileListByProductId(id);
     }
 
 //    @Override
@@ -34,7 +34,7 @@ public class DetailServiceImpl implements DetailService{
     @Override
     @Transactional(readOnly = true)
     public List<ReviewDto> getReviewsByProductId(Long id) {
-        return detailDao.selectReviewsByProductId(id);
+        return detailDao.selectReviewListByProductId(id);
     }
 
     @Override

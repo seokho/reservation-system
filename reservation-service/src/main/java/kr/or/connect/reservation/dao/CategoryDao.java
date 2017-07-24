@@ -35,7 +35,7 @@ public class CategoryDao {
         return simpleJdbcInsert.executeAndReturnKey(parameterSource).longValue();
     }
 
-    public List<Category> selectAll() {
+    public List<Category> selectCategoryList() {
         return jdbcTemplate.query(SELECT_ALL, rowMapper);
     }
 

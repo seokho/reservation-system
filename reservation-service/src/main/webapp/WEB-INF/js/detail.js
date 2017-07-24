@@ -20,7 +20,7 @@
 
         detailSectionTrigger: function () {
             productId = location.href.split("/")[4];
-            var getProductData = $.commonAPIModule.ajax(undefined, API_URL + "/" + productId, "json", "get", "json");
+            var getProductData = CommonAPIModule.ajax(undefined, API_URL + "/" + productId, "json", "get", "json");
             getProductData.then(function (data) {
                 PRODUCT_DATA = data;
                 detailModule.init();
@@ -30,7 +30,7 @@
         },
 
         reviewSectionTrigger: function () {
-            var getReviewData = $.commonAPIModule.ajax(undefined, API_URL + "/" + productId + "/review", "json", "get", "json");
+            var getReviewData = CommonAPIModule.ajax(undefined, API_URL + "/" + productId + "/review", "json", "get", "json");
             getReviewData.then(function (data) {
                 REVIEW_DATA = data;
                 reviewModule.init();
@@ -43,7 +43,7 @@
         },
 
         mapSectionTrigger: function () {
-            var getDisplayInfoData = $.commonAPIModule.ajax(undefined, API_URL + "/" + productId + "/displayInfo", "json", "get", "json");
+            var getDisplayInfoData = CommonAPIModule.ajax(undefined, API_URL + "/" + productId + "/displayInfo", "json", "get", "json");
             getDisplayInfoData.then(function (data) {
                 DISPLAY_INFO_DATA = data;
                 mapModule.init();
@@ -152,7 +152,7 @@
                     "grade": reviewData[i].score,
                     "userId": reviewData[i].username
                 }
-                var element = $.commonAPIModule.templeToElement(template, content);
+                var element = CommonAPIModule.templeToElement(template, content);
                 $target.append(element);
                 if (reviewData[i].saveFileName === null) {
                     $('div.thumb_area').hide();
@@ -188,7 +188,7 @@
                     "imgSrc": productData[i].saveFileName,
                     "name": productData[i].name
                 };
-                var element = $.commonAPIModule.templeToElement(template, content);
+                var element = CommonAPIModule.templeToElement(template, content);
                 $target.append(element);
             }
         },
@@ -201,6 +201,9 @@
         },
         bindEvent: function () {
             $.GLOBAL_VAR.$divSectionStoreDetails.on("click", "a.bk_more", detailModule.toggleButton);
+            $("button.bk_btn").on("click", function() {
+               location.href = "/reserve/"+productId;
+            });
         },
         toggleButton: function () {
             var $open = $('a._open');
@@ -218,7 +221,7 @@
         }
     };
 
-    $.headModule.init($('header'), 'a.lnk_logo', 'a.btn_my');
+    HeadModule.init($('header'), 'a.lnk_logo', 'a.btn_my');
     initModule.init();
 
 })(window);

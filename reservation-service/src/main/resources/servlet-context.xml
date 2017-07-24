@@ -14,7 +14,11 @@
     <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/reservation/myReservation"/>
+            <mvc:mapping path="/myReservation"/>
+            <bean class="kr.or.connect.reservation.interceptor.LoginInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/reserve/**"/>
             <bean class="kr.or.connect.reservation.interceptor.LoginInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

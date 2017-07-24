@@ -1,5 +1,6 @@
 package kr.or.connect.reservation.controller;
 
+import kr.or.connect.reservation.interceptor.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,16 @@ public class MainController {
     @GetMapping("/review/{id}")
     public String review(@PathVariable("id") Long id) {
         return "review";
+    }
+
+    @GetMapping("/myReservation")
+    @Authentication
+    public String myReservation() {return "myreservation"; }
+
+    @GetMapping("/reserve/{id}")
+    @Authentication
+    public String reserve() {
+        return "reserve";
     }
 
 

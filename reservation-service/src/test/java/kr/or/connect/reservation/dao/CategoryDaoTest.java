@@ -34,7 +34,7 @@ public class CategoryDaoTest {
 
     @Test
     public void shouldCategorySelect() {
-        List<Category> categoryList = categoryDao.selectAll();
+        List<Category> categoryList = categoryDao.selectCategoryList();
         assertNotNull(categoryList);
     }
 

@@ -53,7 +53,7 @@ public class NaverLoginService implements LoginService {
         Map<String, String> map = JSONStringToMap(data);
         System.out.println(map.get("result"));
         session.removeAttribute("state");
-        session.removeAttribute("accesToken");
+        session.removeAttribute("accessToken");
         session.removeAttribute("code");
     }
 

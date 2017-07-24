@@ -2,7 +2,6 @@ package kr.or.connect.reservation.controller;
 
 import kr.or.connect.reservation.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSessionEvent;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -27,7 +25,7 @@ public class LoginController {
     public ModelAndView login(HttpServletRequest httpServletRequest) {
         String state = loginService.generateState();
         String prevPage = httpServletRequest.getHeader("referer");
-        ModelAndView mv = new ModelAndView("redirect:" + loginService.getRequestURL() + state);
+        ModelAndView mv = new ModelAndView("redirect:" + loginService.getRequestURL() + state + "&auth_type=reauthenticate");
         httpServletRequest.getSession().setAttribute("state", state);
         httpServletRequest.getSession().setAttribute("prevPage", prevPage);
         return mv;

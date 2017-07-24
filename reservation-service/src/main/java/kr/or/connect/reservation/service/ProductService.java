@@ -1,5 +1,6 @@
 package kr.or.connect.reservation.service;
 
+import kr.or.connect.reservation.domain.ProductPrice;
 import kr.or.connect.reservation.domain.dto.ProductDto;
 
 import java.util.List;
@@ -10,5 +11,7 @@ import java.util.List;
 public interface ProductService {
     List<ProductDto> getProductsUseLimit(Integer offset, Integer limit);
     List<ProductDto> getProductsByCategoryId(Integer category, Integer offset, Integer limit);
+    ProductDto getProductDtoByProductId(Long id);
+    List<ProductPrice> getProductPricesByProductId(Long id);
     Integer getProductsCount();
 }

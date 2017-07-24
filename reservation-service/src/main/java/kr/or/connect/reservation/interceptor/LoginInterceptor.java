@@ -19,7 +19,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod)handler;
         Authentication authentication = handlerMethod.getMethodAnnotation(Authentication.class);
         if(authentication != null) {
-            if (request.getSession().getAttribute("state") != null) {
+            if (request.getSession().getAttribute("state") != null || request.getSession().getAttribute("userMap") != null) {
                 return true;
             } else {
                 response.sendRedirect("/api/login/naverLogin");
